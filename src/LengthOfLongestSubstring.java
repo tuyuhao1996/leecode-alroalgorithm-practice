@@ -18,24 +18,19 @@ public class LengthOfLongestSubstring {
 
     public static int lengthOfLongestSubstring(String s) {
         int ans = 0;
-        for(int i=0;i<s.length();i++)
-        {
-            for(int j=i+1;j<=s.length();j++)
-            {
-                if(allUnique(s,i,j)) ans = Math.max(ans,j-i);
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j <= s.length(); j++) {
+                if (allUnique(s, i, j)) ans = Math.max(ans, j - i);
             }
         }
         return ans;
     }
 
-    public static boolean allUnique(String s,int start,int end)
-    {
+    public static boolean allUnique(String s, int start, int end) {
         Set<Character> set = new HashSet<Character>();
-        for(;start<end;start++)
-        {
+        for (; start < end; start++) {
             Character c = s.charAt(start);
-            if(set.contains(c))
-            {
+            if (set.contains(c)) {
                 return false;
             }
             set.add(c);
@@ -48,29 +43,29 @@ public class LengthOfLongestSubstring {
         System.out.println("au".length());
     }
 
-    public static int lengthOfLogestSubstring2(String s){
+    public static int lengthOfLogestSubstring2(String s) {
         Set<Character> set = new HashSet<>();
-        int ans = 0,i = 0,j =0,n = s.length();
+        int ans = 0, i = 0, j = 0, n = s.length();
         while (i < n && j < n) {
-            if(!set.contains(s.charAt(j))) {
+            if (!set.contains(s.charAt(j))) {
                 set.add(s.charAt(j++));
-                ans = Math.max(ans,j-i);
-            }else{
+                ans = Math.max(ans, j - i);
+            } else {
                 set.remove(s.charAt(i++));
             }
         }
         return ans;
     }
 
-    public static int lengthOfLongestSubstring3(String s){
-        Map<Character,Integer> map = new HashMap<Character, Integer>();
+    public static int lengthOfLongestSubstring3(String s) {
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
         int ans = 0;
-        for(int i=0,j=0;j<s.length();j++){
-            if(map.containsKey(s.charAt(j))){
-                i = Math.max(map.get(s.charAt(j)),i);
+        for (int i = 0, j = 0; j < s.length(); j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = Math.max(map.get(s.charAt(j)), i);
             }
-            ans = Math.max(ans,j-i+1);
-            map.put(s.charAt(j),j+1);//跳过相同元素的点
+            ans = Math.max(ans, j - i + 1);
+            map.put(s.charAt(j), j + 1);//跳过相同元素的点
         }
         return ans;
     }

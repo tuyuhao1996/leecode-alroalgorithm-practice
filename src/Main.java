@@ -1,17 +1,20 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 创建main类
+ */
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        if(sc.hasNext()){
-            for (int i=0;i<sc.nextInt();i++){
+        if (sc.hasNext()) {
+            for (int i = 0; i < sc.nextInt(); i++) {
                 String str = sc.nextLine();
                 String[] strings = str.split(" ");
                 int length = Integer.parseInt(strings[0]);
                 int[] nums = new int[length];
-                for (int j = 0; j< nums.length; j++) {
+                for (int j = 0; j < nums.length; j++) {
                     nums[i] = Integer.parseInt(strings[i + 1]);
                 }
             }

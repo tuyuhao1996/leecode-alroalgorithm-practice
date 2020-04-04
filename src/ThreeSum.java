@@ -1,40 +1,65 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ThreeSum {
     public static List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
-        Map<Integer, String> map = new HashMap<Integer, String>();
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                int index = nums[i] + nums[j];
-                if (!map.containsKey(index)) {
-                    map.put(index, nums[i] + "," + nums[j]);
-                }
-            }
-        }
-
-        for (int k = 0; k < nums.length; k++) {
-            if (map.containsKey(-nums[k])) {
-                List<Integer> list2 = new ArrayList<>();
-                list2.add(-nums[k]);
-                String[] indexs = map.get(nums[k]).split(",");
-                if (indexs != null) {
-                    for (String ins :
-                            indexs) {
-                        list2.add(Integer.parseInt(ins));
+        List<List<Integer>> result = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+        Arrays.sort(nums);
+        int len = nums.length;
+        if (len < 3) return result;
+        for (int i = 1; i < len - 1; i++) {
+            int m = nums[i];
+            int j = i - 1, k = i + 1;
+            while (j >= 0 && k < len) {
+                if (nums[j] + nums[k] == -m) {
+                    if (!map.containsKey(nums[j]) || map.get(nums[j])!=m) {
+                        List<Integer> list2 = new ArrayList<>();
+                        list2.add(nums[j]);
+                        list2.add(m);
+                        list2.add(nums[k]);
+                        result.add(list2);
+                        map.put(nums[j], m);
                     }
+                    j--;
+                } else if (nums[j] + m < -nums[k]) {
+                    k++;
+                } else {
+                    j--;
                 }
-                list.add(list2);
             }
         }
-        return list;
+        return result;
     }
 
     public static void main(String[] args) {
-        int[] arr = {-1,0,1,2,-1,-4};
-        System.out.println(threeSum(arr));
+        int[] arr = {0,0,0};
+        System.out.println(threeSum2(arr));
     }
+
+    public static List<List<Integer>> threeSum2(int[] nums) {
+        List<List<Integer>> ans = new ArrayList();
+        if(nums.length<3) return ans;
+        Arrays.sort(nums);
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>0) break;
+            if(i>0 && nums[i]==nums[i-1]) continue;
+            int m = i+1;
+            int l = nums.length-1;
+            while (l>m){
+                int sum = nums[i]+nums[m]+nums[l];
+                if(sum==0) {
+                    ans.add(Arrays.asList(nums[i],nums[m],nums[l]));
+                    while (l>m && nums[m]==nums[m+1]) m++;
+                    while (l>m && nums[l]==nums[l-1]) l--;
+                    m++;l--;
+                }else if(sum<0){
+                    m++;
+                }else{
+                    l--;
+                }
+            }
+        }
+        return ans;
+    }
+
 }
