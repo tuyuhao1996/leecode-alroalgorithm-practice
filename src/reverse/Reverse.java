@@ -24,4 +24,24 @@ package reverse;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class Reverse {
+    public static int reverse(int x) {
+        StringBuffer temp = new StringBuffer();
+        int result  = 0;
+        if (x==0) return 0;
+        temp.append(x);
+        temp.reverse();
+        if(x<=0) temp.delete(temp.length()-1,temp.length());
+        if(x<0) temp.insert(0,"-");
+        long temp2 = Long.valueOf(temp.toString());
+        if(temp2> Integer.MAX_VALUE || temp2<Integer.MIN_VALUE){
+            return 0;
+        }
+        result = (int)temp2;
+        return result;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(reverse(-1245));
+    }
+
 }
